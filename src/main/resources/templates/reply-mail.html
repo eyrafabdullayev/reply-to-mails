@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Mail Management System</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        h1 {
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-2">
+    <h1>Mail #[[${mail.id}]]</h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row mb-5">
+                <div class="col-sm-6">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">From:</span>
+                        </div>
+                        <input type="text" class="form-control" th:field="${mail.from}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Subject:</span>
+                        </div>
+                        <input type="text" class="form-control" th:field="${mail.subject}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Body:</span>
+                        </div>
+                        <input type="text" class="form-control" th:field="${mail.body}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Date:</span>
+                        </div>
+                        <input type="text" class="form-control" th:field="${mail.date}">
+                    </div>
+                </div>
+            </div>
+
+            <a th:href="@{/}">Back to the inbox</a>
+        </div>
+        <div class="col-sm-6">
+            <form action="#" th:action="@{/sendEmail}" th:object="${feedback}" method="POST">
+                <input type="text" th:field="*{to}"
+                       placeholder="To" class="form-control mb-4 col-6">
+                <input type="text" th:field="*{subject}"
+                       placeholder="Subject" class="form-control mb-4 col-6">
+                <textarea class="form-control mb-4" th:field="*{body}" rows="2"></textarea>
+
+                <button type="submit" class="btn btn-info col-2 mb-3">Reply </button>
+                <img id="load" th:src="@{/load.gif}" style="width: 100px;height: 100px;display:none" alt="load-gif">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+       $("button[type='submit']").on('click', function () {
+           $('#load').show();
+       });
+    });
+</script>
